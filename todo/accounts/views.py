@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+#from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
@@ -15,7 +15,8 @@ def add_user(request):
             u = form.save()
             u.set_password(u.password)
             u.save()
-            return HttpResponse('Usuário criado com sucesso!')
+            messages.sucess(request, 'Usuário criado com sucesso! Utilize o formulário abaixo para fazer login.')
+            return redirect('accounts:user_login')
     else:
         form = UserForm()
     return render(request, 'accounts/add_user.html', {'form': form})
